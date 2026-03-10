@@ -1,17 +1,12 @@
 import streamlit as st
 
 st.title("Библиотека")
-
-# Създаване на списък ако не съществува
 if "books" not in st.session_state:
     st.session_state.books = []
-
-# Добавяне на книга
 st.header("Добави книга")
 title = st.text_input("Заглавие")
 author = st.text_input("Автор")
 price = st.number_input("Цена", min_value=0.0)
-
 if st.button("Добави книга"):
     book = {
         "title": title,
@@ -20,8 +15,6 @@ if st.button("Добави книга"):
     }
     st.session_state.books.append(book)
     st.success("Книгата е добавена!")
-
-# Показване на всички книги
 if st.button("Покажи всички книги"):
     if len(st.session_state.books) == 0:
         st.write("Няма добавени книги.")
@@ -31,11 +24,8 @@ if st.button("Покажи всички книги"):
             st.write("Автор:", book["author"])
             st.write("Цена:", book["price"])
             st.write("--------------------")
-
-# Търсене по автор
 st.header("Търсене по автор")
 search_author = st.text_input("Въведи името на автор")
-
 if st.button("Търси по автор"):
     found = False
     for book in st.session_state.books:
@@ -45,8 +35,6 @@ if st.button("Търси по автор"):
 
     if not found:
         st.write("Няма намерени книги на този автор.")
-
-# Търсене по заглавие
 st.header("Търсене по заглавие")
 search_title = st.text_input("Въведете заглавие:")
 
@@ -59,8 +47,6 @@ if st.button("Търси по заглавие"):
 
     if not found:
         st.write("Няма намерена такава книга.")
-
-# Най-евтина книга
 if st.button("Покажи най-евтината книга"):
     if len(st.session_state.books) == 0:
         st.write("Няма книги.")
@@ -69,7 +55,6 @@ if st.button("Покажи най-евтината книга"):
         for book in st.session_state.books:
             if book["price"] < cheapest["price"]:
                 cheapest = book
-
         st.write("Най-евтината книга е:")
         st.write(cheapest)
 
